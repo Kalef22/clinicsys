@@ -1,10 +1,10 @@
 <?php
 class Conexion{
     // private $servername='10.35.50.118:3306';
-    private $servername='localhost';
-    private $username='clinicsys';
-    private $password='_8Q(iaZL3y_HmMf7';
-    private $dbname='clinicsys';
+    private $servername='db5017476071.hosting-data.io';
+    private $username='dbu2962301';
+    private $password='u9Jw4@ma9af9nsC';
+    private $dbname='dbs14017378';
     private $conn;
     //constructor para establecer la conexion automatica al instanciar la clase
     public function __construct(){
