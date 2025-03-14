@@ -1,8 +1,9 @@
 <?php
     session_start();
-    // Generar un token CSRF para seguridad
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Genera un token único
+    
+    // Generar un token CSRF si no existe
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     // $mensaje = '';
 ?>
@@ -65,7 +66,7 @@
                                                 <input class="btn btn-primary" type="submit" value="Acceder" name="submit">
                                             </div>
                                             <!-- Token CSRF -->
-                                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                         </form>
 
                                     </div>
