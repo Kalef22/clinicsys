@@ -1,0 +1,88 @@
+<!-- Explicación del código:
+Estructura HTML:
+
+Se crea un calendario con días organizados en una cuadrícula (grid) usando row y col de Bootstrap.
+Cuando haces clic en un día, se abre un modal para agendar una cita.
+El modal contiene un formulario donde puedes ingresar el nombre y la hora de la cita.
+JavaScript:
+
+generateCalendar(): Genera el calendario y coloca los días en las celdas. Si hay citas programadas, las muestra debajo del número del día.
+openAppointmentModal(): Abre el modal para agendar una cita cuando haces clic en un día.
+appointments: Objeto que almacena las citas en formato {fecha: {nombre, hora}}.
+Guardar y mostrar citas:
+
+Cuando se envía el formulario, se guarda la cita en el objeto appointments y el calendario se regenera para mostrar las citas programadas.
+Mejoras adicionales:
+Cambiar de mes: Puedes agregar botones para avanzar o retroceder entre meses.
+Validación: Agregar validaciones adicionales para verificar que no haya citas duplicadas en la misma hora.
+Persistencia: Utilizar localStorage o una base de datos para guardar las citas de forma persist
+
+
+
+
+Modificaciones necesarias:
+Deshabilitar la selección de fechas pasadas: No se debe permitir que el usuario haga clic en fechas anteriores a la actual.
+Estilo visual para días pasados: Podemos usar CSS para aplicar un estilo especial (como un color gris) a las fechas pasadas.
+
+Explicación de los cambios:
+Deshabilitar días pasados:
+
+En el método generateCalendar(), se agrega la variable isPast, que evalúa si el día es pasado comparando la fecha actual con el día que se está generando en el calendario.
+Si el día es pasado, se añade la clase disabled-day, que cambia el estilo visual para que se vea "deshabilitado" (color gris y cursor no permitido). Además, se evita que se pueda hacer clic en esos días, eliminando el evento de clic.
+Estilos visuales:
+
+La clase `.disabled
+
+
+
+
+Para implementar la funcionalidad de cambiar entre meses en tu calendario, puedes añadir botones de navegación ("Anterior" y "Siguiente") que permitan a los usuarios moverse entre los meses. Estos botones actualizarán el mes y año del calendario sin recargar la página. Aquí te muestro cómo hacerlo:
+
+Añadir los botones de navegación en el HTML justo encima del calendario.
+Modificar el JavaScript para actualizar el mes y año cuando se hace clic en los botones.
+Explicación:
+Navegación entre meses: Los botones "Anterior" y "Siguiente" modifican las variables currentMonth y currentYear. Si el mes actual es enero y se presiona "Anterior", se retrocede al mes de diciembre del año anterior, y lo mismo ocurre al avanzar de diciembre a enero del siguiente año.
+Actualización dinámica del calendario: Cada vez que cambian el mes o el año, se regenera el calendario con la función generateCalendar() utilizando los nuevos valores de currentMonth y currentYear.
+Etiqueta de mes y año actual: La función updateMonthYearLabel() actualiza el texto que muestra el mes y año actuales en el formato "Mes Año".
+Con esto, los usuarios podrán navegar entre meses sin que se recargue la página y ver el calendario correspondiente.
+
+
+
+¿Qué hace cada parte?
+Botones de navegación: Los botones Anterior y Siguiente permiten moverse entre los meses.
+updateMonthYearHeader: Esta función actualiza el título del mes y año que aparece sobre el calendario.
+Manejo de los eventos de clic en los botones de navegación: Al hacer clic en "Anterior" o "Siguiente", se ajusta el mes y el año y se vuelve a generar el calendario con la función generateCalendar.
+Cambio del mes y año: Controla si se debe pasar de diciembre a enero (o de enero a diciembre) y ajusta el año en consecuencia.
+Con estas modificaciones, los usuarios podrán navegar entre los meses del calendario y las fechas seguirán actualizándose dinámicamente.
+
+Descripción del código:
+Estructura HTML: Se genera un calendario utilizando Bootstrap y elementos de div. Los días de la semana están fijos, y los días del mes se generan dinámicamente.
+Fechas deshabilitadas: Los días pasados están deshabilitados y marcados con un color gris claro.
+Citas: Puedes agregar citas seleccionando un día en el calendario. Estas citas se mostrarán dentro de los días seleccionados.
+Navegación entre meses: Hay botones para avanzar o retroceder entre meses. Cuando se cambia de mes, el calendario se actualiza con las fechas correctas para ese mes.
+Modal: Un modal de Bootstrap permite agendar citas en los días seleccionados.
+Este código es funcional y te permitirá navegar por los meses, agendar citas y deshabilitar días anteriores a la fecha actual.
+
+
+
+
+Para agregar validaciones adicionales y evitar que se agenden citas duplicadas en la misma hora, puedes modificar el código del formulario de citas. La lógica consistirá en verificar si ya existe una cita programada en la misma fecha y hora antes de guardar una nueva.
+
+A continuación, te indico cómo puedes actualizar el código para añadir esta validación:
+
+Cambios principales:
+Validar si ya existe una cita para la misma fecha y hora.
+Mostrar un mensaje de error si se intenta duplicar una cita.
+Descripción de los cambios:
+Clave única para la cita: Se genera una clave única dateTimeKey que combina la fecha y la hora (``${date}-${time}```). Esta clave se usa para comprobar si ya existe una cita en el mismo horario.
+
+Validación de cita duplicada: Antes de guardar la cita, el código verifica si la clave dateTimeKey ya existe en el objeto appointments. Si es así, se muestra un mensaje de alerta y se detiene el guardado de la cita.
+
+Guardado de la cita: Si no hay una cita programada para esa fecha y hora, se guarda normalmente en el objeto appointments con la clave dateTimeKey.
+Otras modificaciones:
+Actualización de la función que genera el calendario para manejar citas en base a dateTimeKey:
+Descripción del cambio en generateCalendar:
+Ahora, cuando se recorre el objeto appointments en generateCalendar, se extraen tanto la fecha como la hora de la clave dateTimeKey. Se compara si la cita corresponde al día actual del calendario, y si es así, se muestra en el día correcto junto con la hora y el nombre de la persona.
+Conclusión:
+Con estas modificaciones, el sistema ahora valida si ya existe una cita para la misma fecha y hora antes de permitir que se guarde una nueva cita. Esto evita conflictos de horario en el calendario.
+-->
